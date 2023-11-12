@@ -5,7 +5,7 @@ public interface IEventHandler
 }
 
 public interface IEventHandler<in TEvent> : IEventHandler
-    where TEvent : IDomainEvent
+  where TEvent : IDomainEvent
 {
-    void Handle(TEvent evt);
+  void Handle(TEvent evt);
 }

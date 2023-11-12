@@ -2,19 +2,19 @@ namespace Un.Domain;
 
 public abstract class DecisionProjectionBase
 {
-    private readonly Dictionary<Type, Action<IDomainEvent>> _handlersByType = new();
+  private readonly Dictionary<Type, Action<IDomainEvent>> _handlersByType = new();
 
-    public void Apply(IDomainEvent evt)
+  public void Apply(IDomainEvent evt)
+  {
+    if (_handlersByType.TryGetValue(evt.GetType(), out Action<IDomainEvent>? apply))
     {
-        if (_handlersByType.TryGetValue(evt.GetType(), out var apply))
-        {
-            apply(evt);
-        }
+      apply(evt);
     }
+  }
 
-    protected void AddHandler<T>(Action<T> apply)
-        where T : IDomainEvent
-    {
-        _handlersByType.Add(typeof(T), o => apply((T)o));
-    }
+  protected void AddHandler<T>(Action<T> apply)
+    where T : IDomainEvent
+  {
+    _handlersByType.Add(typeof(T), o => apply((T)o));
+  }
 }

@@ -7,47 +7,47 @@ namespace Un.Infrastructure.Tests;
 [TestClass]
 public class EventPublisherTest
 {
-    [TestMethod]
-    public void GivenHandlerWhenPublishThenCallHandler()
-    {
-        var handler = new EventHandler<EventA>();
-        var publisher = new EventPublisher();
-        publisher.Subscribe(handler);
+  [TestMethod]
+  public void GivenHandlerWhenPublishThenCallHandler()
+  {
+    EventHandler<EventA> handler = new();
+    EventPublisher publisher = new();
+    publisher.Subscribe(handler);
 
-        publisher.Publish(new EventA());
+    publisher.Publish(new EventA());
 
-        Check.That(handler.IsCalled).IsTrue();
-    }
+    Check.That(handler.IsCalled).IsTrue();
+  }
 
-    [TestMethod]
-    public void GivenDifferentHandlersWhenPublishThenCallRightHandler()
-    {
-        var handlerB = new EventHandler<EventB>();
-        var handlerA = new EventHandler<EventA>();
-        var publisher = new EventPublisher();
-        publisher.Subscribe(handlerA);
-        publisher.Subscribe(handlerB);
+  [TestMethod]
+  public void GivenDifferentHandlersWhenPublishThenCallRightHandler()
+  {
+    EventHandler<EventB> handlerB = new();
+    EventHandler<EventA> handlerA = new();
+    EventPublisher publisher = new();
+    publisher.Subscribe(handlerA);
+    publisher.Subscribe(handlerB);
 
-        publisher.Publish(new EventB());
+    publisher.Publish(new EventB());
 
-        Check.That(handlerA.IsCalled).IsFalse();
-        Check.That(handlerB.IsCalled).IsTrue();
-    }
+    Check.That(handlerA.IsCalled).IsFalse();
+    Check.That(handlerB.IsCalled).IsTrue();
+  }
 
-    private class EventHandler<TEvent> : IEventHandler<TEvent> where TEvent : IDomainEvent
-    {
-        public bool IsCalled { get; private set; }
+  private class EventHandler<TEvent> : IEventHandler<TEvent> where TEvent : IDomainEvent
+  {
+    public bool IsCalled { get; private set; }
 
-        public void Handle(TEvent evt) => IsCalled = true;
-    }
+    public void Handle(TEvent evt) => IsCalled = true;
+  }
 
-    private class EventA : IDomainEvent
-    {
-        public object GetAggregateId() => "A";
-    }
+  private class EventA : IDomainEvent
+  {
+    public object GetAggregateId() => "A";
+  }
 
-    private class EventB : IDomainEvent
-    {
-        public object GetAggregateId() => "B";
-    }
+  private class EventB : IDomainEvent
+  {
+    public object GetAggregateId() => "B";
+  }
 }
