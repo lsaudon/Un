@@ -24,7 +24,10 @@ public class GameTest
     {
         EventPublisherFake eventPublisher = new();
         var gameId = GameId.Generate();
-        var game = new Game(new[] { new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)) });
+        var game = new Game(new List<IDomainEvent>
+        {
+            new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero))
+        });
 
         Card card = new(CardColor.Blue, CardValue.One);
         var playerId = PlayerId.Generate();
@@ -39,7 +42,8 @@ public class GameTest
     {
         EventPublisherFake eventPublisher = new();
         var gameId = GameId.Generate();
-        var game = new Game(new[] { new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)) });
+        var game = new Game(
+            new List<IDomainEvent> { new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)) });
 
         Card card = new(CardColor.Red, CardValue.One);
         game.PlayCard(eventPublisher, PlayerId.Generate(), card);

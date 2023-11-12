@@ -35,7 +35,7 @@ public class EventPublisherWithStorageTest
         Check.That(_publisherBase.Events).HasSize(1);
     }
 
-    private record EventA : IDomainEvent
+    private readonly record struct EventA : IDomainEvent
     {
         public object GetAggregateId() => "A";
     }

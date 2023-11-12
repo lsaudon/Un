@@ -45,13 +45,13 @@ public class EventsStoreTest
         Check.That(eventsOfAggregateA.Cast<EventA>().Select(o => o.Value)).ContainsExactly(1, 2, 3);
     }
 
-    private record EventA(AgregateAId Id, int Value = 0) : IDomainEvent
+    private readonly record struct EventA(AgregateAId Id, int Value = 0) : IDomainEvent
     {
         public object GetAggregateId() => Id;
     }
 
-    private record struct AgregateAId(string Id)
+    private readonly record struct AgregateAId(string Id)
     {
-        public string Id { get; private set; } = Id;
+        public string Id { get; } = Id;
     }
 }
