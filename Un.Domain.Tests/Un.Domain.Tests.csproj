@@ -17,6 +17,11 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="NFluent" Version="3.0.1.352" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Un.Domain\Un.Domain.csproj" />
     </ItemGroup>
 
 </Project>
