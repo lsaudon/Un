@@ -1,4 +1,4 @@
-namespace Un.Domain.Game;
+namespace Un.Domain.Games;
 
 public record GameId(string Id)
 {

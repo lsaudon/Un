@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFluent;
-using Un.Domain.Game;
+using Un.Domain.Games;
 
-namespace Un.Domain.Tests.Game;
+namespace Un.Domain.Tests.Games;
 
 [TestClass]
 public class GameIdTest
