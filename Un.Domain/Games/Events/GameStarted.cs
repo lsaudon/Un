@@ -1,4 +1,4 @@
-namespace Un.Domain.Games;
+namespace Un.Domain.Games.Events;
 
 public record GameStarted(GameId Id, Card Card) : IDomainEvent
 {

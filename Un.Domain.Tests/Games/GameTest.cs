@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFluent;
 using Un.Domain.Games;
+using Un.Domain.Games.Events;
 
 namespace Un.Domain.Tests.Games;
 

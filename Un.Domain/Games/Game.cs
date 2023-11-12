@@ -1,3 +1,5 @@
+using Un.Domain.Games.Events;
+
 namespace Un.Domain.Games;
 
 public class Game
@@ -20,7 +22,7 @@ public class Game
     public void PlayCard(IEventPublisher eventPublisher, PlayerId playerId, Card card)
     {
         if (_projection.LastPlayer == playerId ||
-            (_projection.LastCard.Color != card.Color && _projection.LastCard.Value != card.Value)) return;
+            (_projection.TopCard.Color != card.Color && _projection.TopCard.Value != card.Value)) return;
 
         eventPublisher.Publish(new CardPlayed(_projection.Id, playerId, card));
     }
@@ -29,7 +31,7 @@ public class Game
     {
         public GameId Id { get; private set; } = new(string.Empty);
         public PlayerId LastPlayer { get; private set; } = new(string.Empty);
-        public Card LastCard { get; private set; }
+        public Card TopCard { get; private set; }
 
         public DecisionProjection()
         {
@@ -40,13 +42,13 @@ public class Game
         private void When(GameStarted evt)
         {
             Id = evt.Id;
-            LastCard = evt.Card;
+            TopCard = evt.Card;
         }
 
         private void When(CardPlayed evt)
         {
             LastPlayer = evt.PlayerId;
-            LastCard = evt.Card;
+            TopCard = evt.Card;
         }
     }
 }
