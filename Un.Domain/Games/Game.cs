@@ -17,18 +17,18 @@ public class Game
         eventPublisher.Publish(new GameStarted(GameId.Generate(), new Card(CardColor.Blue, CardValue.Zero)));
     }
 
-    public void PlayCard(IEventPublisher eventPublisher, Card card, PlayerId playerId)
+    public void PlayCard(IEventPublisher eventPublisher, PlayerId playerId, Card card)
     {
         if (_projection.LastPlayer == playerId ||
-            _projection.LastCard.Color != card.Color && _projection.LastCard.Value != card.Value) return;
+            (_projection.LastCard.Color != card.Color && _projection.LastCard.Value != card.Value)) return;
 
         eventPublisher.Publish(new CardPlayed(_projection.Id, playerId, card));
     }
 
     private class DecisionProjection : DecisionProjectionBase
     {
-        public GameId Id { get; private set; }
-        public PlayerId LastPlayer { get; private set; }
+        public GameId Id { get; private set; } = new(string.Empty);
+        public PlayerId LastPlayer { get; private set; } = new(string.Empty);
         public Card LastCard { get; private set; }
 
         public DecisionProjection()
