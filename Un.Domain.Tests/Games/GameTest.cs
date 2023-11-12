@@ -26,10 +26,11 @@ public class GameTest
         var game = new Game(new[] { new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)) });
 
         Card card = new(CardColor.Blue, CardValue.One);
-        game.PlayCard(eventPublisher, card);
+        var playerId = PlayerId.Generate();
+        game.PlayCard(eventPublisher, card, playerId);
 
         Check.That(eventPublisher.Events)
-            .ContainsExactly(new CardPlayed(gameId, card));
+            .ContainsExactly(new CardPlayed(gameId, playerId, card));
     }
 
     [TestMethod]
@@ -40,7 +41,7 @@ public class GameTest
         var game = new Game(new[] { new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)) });
 
         Card card = new(CardColor.Red, CardValue.One);
-        game.PlayCard(eventPublisher, card);
+        game.PlayCard(eventPublisher, card, PlayerId.Generate());
 
         Check.That(eventPublisher.Events).IsEmpty();
     }
@@ -53,14 +54,15 @@ public class GameTest
         var game = new Game(new IDomainEvent[]
         {
             new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)),
-            new CardPlayed(gameId, new Card(CardColor.Blue, CardValue.One))
+            new CardPlayed(gameId, PlayerId.Generate(), new Card(CardColor.Blue, CardValue.One))
         });
 
         Card card = new(CardColor.Red, CardValue.One);
-        game.PlayCard(eventPublisher, card);
+        var playerId = PlayerId.Generate();
+        game.PlayCard(eventPublisher, card, playerId);
 
         Check.That(eventPublisher.Events)
-            .ContainsExactly(new CardPlayed(gameId, card));
+            .ContainsExactly(new CardPlayed(gameId, playerId, card));
     }
 
     [TestMethod]
@@ -71,11 +73,29 @@ public class GameTest
         var game = new Game(new IDomainEvent[]
         {
             new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)),
-            new CardPlayed(gameId, new Card(CardColor.Blue, CardValue.One))
+            new CardPlayed(gameId, PlayerId.Generate(), new Card(CardColor.Blue, CardValue.One))
         });
 
         Card card = new(CardColor.Red, CardValue.Zero);
-        game.PlayCard(eventPublisher, card);
+        game.PlayCard(eventPublisher, card, PlayerId.Generate());
+
+        Check.That(eventPublisher.Events).IsEmpty();
+    }
+
+    [TestMethod]
+    public void GivenCardPlayedWhenSamePlayerPlayCardThenDoNotRaiseCardPlayed()
+    {
+        EventPublisherFake eventPublisher = new();
+        var gameId = GameId.Generate();
+        var playerId = PlayerId.Generate();
+        var game = new Game(new IDomainEvent[]
+        {
+            new GameStarted(gameId, new Card(CardColor.Blue, CardValue.Zero)),
+            new CardPlayed(gameId, playerId, new Card(CardColor.Blue, CardValue.One))
+        });
+
+        Card card = new(CardColor.Red, CardValue.One);
+        game.PlayCard(eventPublisher, card, playerId);
 
         Check.That(eventPublisher.Events).IsEmpty();
     }
