@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFluent;
 using Un.Domain.Game;
 
-namespace Un.Domain.Tests;
+namespace Un.Domain.Tests.Game;
 
 [TestClass]
 public class GameIdTest
