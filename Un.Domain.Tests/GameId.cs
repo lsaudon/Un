@@ -15,4 +15,12 @@ public class GameIdTest
 
         Check.That(id1).IsNotEqualTo(id2);
     }
+    
+    [TestMethod]
+    public void WhenToStringIdThenId()
+    {
+        var id = GameId.Generate();
+
+        Check.That(id.ToString()).IsEqualTo(id.Id);
+    }
 }
