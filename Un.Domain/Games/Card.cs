@@ -12,4 +12,4 @@ public enum CardValue
     One
 }
 
-public record Card(CardColor Color, CardValue Value);
+public readonly record struct Card(CardColor Color, CardValue Value);
