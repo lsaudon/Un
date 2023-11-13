@@ -9,18 +9,25 @@ namespace Un.Application.Tests;
 [TestClass]
 public class UnTest
 {
-  [TestMethod]
-  public void Truc()
+  private readonly EventsStore _eventsStore = new();
+  private readonly EventPublisher _eventPublisher = new();
+  private readonly EventPublisherWithStorage _eventPublisherWithStorage;
+  private readonly GameStateRepository _gameStateRepository = new();
+
+  public UnTest()
   {
-    EventsStore eventsStore = new();
-    EventPublisher eventPublisher = new();
-    EventPublisherWithStorage eventPublisherWithStorage = new(eventsStore, eventPublisher);
-    GameStateRepository gameStateRepository = new();
-    eventPublisher.Subscribe(new UpdateState(gameStateRepository));
-    GameId gameId = Game.Start(eventPublisherWithStorage);
-    new Game(eventsStore.GetEventsOfAggregate(gameId))
-     .PlayCard(eventPublisherWithStorage, PlayerId.Generate(), new Card(CardColor.Blue, CardValue.One));
-    GameStateProjection stateOfGame = gameStateRepository.GetStateOfGame(gameId);
+    _eventPublisherWithStorage = new EventPublisherWithStorage(_eventsStore, _eventPublisher);
+    _eventPublisher.Subscribe(new UpdateState(_gameStateRepository));
+  }
+
+  [TestMethod]
+  public void GivenNewGameWhenPlayingCardThenGameStateShouldReflectCardPlayed()
+  {
+    GameId gameId = Game.Start(_eventPublisherWithStorage);
+    new Game(_eventsStore.GetEventsOfAggregate(gameId))
+     .PlayCard(_eventPublisherWithStorage, PlayerId.Generate(), new Card(CardColor.Blue, CardValue.One));
+
+    GameStateProjection stateOfGame = _gameStateRepository.GetStateOfGame(gameId);
     Check.That(stateOfGame.Card).IsEqualTo(new Card(CardColor.Blue, CardValue.One));
   }
 }
