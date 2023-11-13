@@ -21,14 +21,20 @@ public class Game
 
   public void PlayCard(IEventPublisher eventPublisher, PlayerId playerId, Card card)
   {
-    if (_projection.LastPlayer == playerId ||
-        _projection.TopCard.Color != card.Color && _projection.TopCard.Value != card.Value)
+    if (IsNotPlayable(_projection.LastPlayer, playerId, _projection.TopCard, card))
     {
       return;
     }
 
     eventPublisher.Publish(new CardPlayed(_projection.Id, playerId, card));
   }
+
+  private bool IsNotPlayable(PlayerId playerA, PlayerId playerB, Card cardA, Card cardB) =>
+    IsNotPlayablePlayer(playerA, playerB) || IsNotPlayableCard(cardA, cardB);
+
+  private bool IsNotPlayablePlayer(PlayerId a, PlayerId b) => a == b;
+
+  private bool IsNotPlayableCard(Card a, Card b) => a.Color != b.Color && a.Value != b.Value;
 
   private class DecisionProjection : DecisionProjectionBase
   {
