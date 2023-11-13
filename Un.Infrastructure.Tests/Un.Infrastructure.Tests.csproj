@@ -26,4 +26,12 @@
         <ProjectReference Include="..\Un.Infrastructure\Un.Infrastructure.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="TestResults\fec4954c-ec2d-4337-8b29-ab2e8e5821ea\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="TestResults\fec4954c-ec2d-4337-8b29-ab2e8e5821ea\coverage.cobertura.xml"/>
+    </ItemGroup>
+
 </Project>
