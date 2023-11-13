@@ -21,13 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Un.Domain.Tests\Un.Domain.Tests.csproj"/>
-        <ProjectReference Include="..\Un.Domain\Un.Domain.csproj"/>
         <ProjectReference Include="..\Un.Infrastructure\Un.Infrastructure.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="TestResults\fec4954c-ec2d-4337-8b29-ab2e8e5821ea\coverage.cobertura.xml"/>
     </ItemGroup>
 
 </Project>

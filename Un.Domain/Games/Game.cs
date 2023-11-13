@@ -14,9 +14,11 @@ public class Game
     }
   }
 
-  public static void Start(IEventPublisher eventPublisher)
+  public static GameId Start(IEventPublisher eventPublisher)
   {
-    eventPublisher.Publish(new GameStarted(GameId.Generate(), new Card(CardColor.Blue, CardValue.Zero)));
+    GameId id = GameId.Generate();
+    eventPublisher.Publish(new GameStarted(id, new Card(CardColor.Blue, CardValue.Zero)));
+    return id;
   }
 
   public void PlayCard(IEventPublisher eventPublisher, PlayerId playerId, Card card)
