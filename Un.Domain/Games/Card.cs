@@ -3,13 +3,23 @@ namespace Un.Domain.Games;
 public enum CardColor
 {
   Red,
-  Blue
+  Blue,
+  Yellow,
+  Green
 }
 
 public enum CardValue
 {
   Zero,
-  One
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Seven,
+  Eight,
+  Nine
 }
 
 public readonly record struct Card(CardColor Color, CardValue Value);

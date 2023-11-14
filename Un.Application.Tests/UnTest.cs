@@ -1,33 +1,47 @@
+using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFluent;
 using Un.Domain.Games;
 using Un.Domain.Games.Handlers;
 using Un.Infrastructure;
+using Check = NFluent.Check;
 
 namespace Un.Application.Tests;
+
+public static class CardArbitrary
+{
+  public static Arbitrary<Card> Generate() => Arb.From(
+                                                       from color in Arb.Generate<CardColor>()
+                                                       from value in color == CardColor.Blue
+                                                                       ? Arb.Generate<CardValue>()
+                                                                       : Gen.Constant(CardValue.Zero)
+                                                       select new Card(color, value)
+                                                      );
+}
 
 [TestClass]
 public class UnTest
 {
-  private readonly EventsStore _eventsStore = new();
-  private readonly EventPublisher _eventPublisher = new();
-  private readonly EventPublisherWithStorage _eventPublisherWithStorage;
-  private readonly GameStateRepository _gameStateRepository = new();
-
-  public UnTest()
-  {
-    _eventPublisherWithStorage = new EventPublisherWithStorage(_eventsStore, _eventPublisher);
-    _eventPublisher.Subscribe(new UpdateState(_gameStateRepository));
-  }
-
   [TestMethod]
   public void GivenNewGameWhenPlayingCardThenGameStateShouldReflectCardPlayed()
   {
-    GameId gameId = Game.Start(_eventPublisherWithStorage);
-    new Game(_eventsStore.GetEventsOfAggregate(gameId))
-     .PlayCard(_eventPublisherWithStorage, PlayerId.Generate(), new Card(CardColor.Blue, CardValue.One));
+    Prop.ForAll(CardArbitrary.Generate(), Body).QuickCheckThrowOnFailure();
+    return;
 
-    GameStateProjection stateOfGame = _gameStateRepository.GetStateOfGame(gameId);
-    Check.That(stateOfGame.Card).IsEqualTo(new Card(CardColor.Blue, CardValue.One));
+    void Body(Card card)
+    {
+      EventsStore eventsStore = new();
+      EventPublisher eventPublisher = new();
+      EventPublisherWithStorage eventPublisherWithStorage = new(eventsStore, eventPublisher);
+      GameStateRepository gameStateRepository = new();
+      eventPublisher.Subscribe(new UpdateState(gameStateRepository));
+
+      GameId gameId = Game.Start(eventPublisherWithStorage);
+      new Game(eventsStore.GetEventsOfAggregate(gameId)).PlayCard(eventPublisherWithStorage, PlayerId.Generate(), card);
+
+      GameStateProjection stateOfGame = gameStateRepository.GetStateOfGame(gameId);
+      Check.That(stateOfGame.Card)
+           .IsEqualTo(card);
+    }
   }
 }
