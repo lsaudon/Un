@@ -2,7 +2,7 @@ namespace Un.Domain.Tests;
 
 public class EventPublisherFake : IEventPublisher
 {
-  private readonly IList<IDomainEvent> _events = new List<IDomainEvent>();
+  private readonly List<IDomainEvent> _events = [];
 
   public IEnumerable<IDomainEvent> Events => _events;
 

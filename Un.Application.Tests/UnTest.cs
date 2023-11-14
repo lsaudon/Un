@@ -28,7 +28,7 @@ public class UnTest
     Prop.ForAll(CardArbitrary.Generate(), Body).QuickCheckThrowOnFailure();
     return;
 
-    void Body(Card card)
+    static void Body(Card card)
     {
       EventsStore eventsStore = new();
       EventPublisher eventPublisher = new();

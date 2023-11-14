@@ -4,7 +4,7 @@ namespace Un.Infrastructure;
 
 public class EventsStore
 {
-  private readonly IList<IDomainEvent> _events = new List<IDomainEvent>();
+  private readonly List<IDomainEvent> _events = [];
 
   public void Store(IDomainEvent evt)
   {

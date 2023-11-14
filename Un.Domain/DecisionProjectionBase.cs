@@ -2,7 +2,7 @@ namespace Un.Domain;
 
 public abstract class DecisionProjectionBase
 {
-  private readonly Dictionary<Type, Action<IDomainEvent>> _handlersByType = new();
+  private readonly Dictionary<Type, Action<IDomainEvent>> _handlersByType = [];
 
   public void Apply(IDomainEvent evt)
   {

@@ -31,14 +31,14 @@ public class Game
     eventPublisher.Publish(new CardPlayed(_projection.Id, playerId, card));
   }
 
-  private bool IsNotPlayable(PlayerId playerA, PlayerId playerB, Card cardA, Card cardB) =>
+  private static bool IsNotPlayable(PlayerId playerA, PlayerId playerB, Card cardA, Card cardB) =>
     IsNotPlayablePlayer(playerA, playerB) || IsNotPlayableCard(cardA, cardB);
 
-  private bool IsNotPlayablePlayer(PlayerId a, PlayerId b) => a == b;
+  private static bool IsNotPlayablePlayer(PlayerId a, PlayerId b) => a == b;
 
-  private bool IsNotPlayableCard(Card a, Card b) => a.Color != b.Color && a.Value != b.Value;
+  private static bool IsNotPlayableCard(Card a, Card b) => a.Color != b.Color && a.Value != b.Value;
 
-  private class DecisionProjection : DecisionProjectionBase
+  private sealed class DecisionProjection : DecisionProjectionBase
   {
     public GameId Id { get; private set; } = new(string.Empty);
     public PlayerId LastPlayer { get; private set; } = new(string.Empty);

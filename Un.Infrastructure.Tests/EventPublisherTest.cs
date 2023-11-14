@@ -34,19 +34,19 @@ public class EventPublisherTest
     Check.That(handlerB.IsCalled).IsTrue();
   }
 
-  private class EventHandler<TEvent> : IEventHandler<TEvent> where TEvent : IDomainEvent
+  private sealed class EventHandler<TEvent> : IEventHandler<TEvent> where TEvent : IDomainEvent
   {
     public bool IsCalled { get; private set; }
 
     public void Handle(TEvent evt) => IsCalled = true;
   }
 
-  private class EventA : IDomainEvent
+  private sealed class EventA : IDomainEvent
   {
     public object GetAggregateId() => "A";
   }
 
-  private class EventB : IDomainEvent
+  private sealed class EventB : IDomainEvent
   {
     public object GetAggregateId() => "B";
   }

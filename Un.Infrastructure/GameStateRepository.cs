@@ -4,8 +4,8 @@ namespace Un.Infrastructure;
 
 public class GameStateRepository : IGameStateRepository
 {
-  private readonly IDictionary<GameId, GameStateProjection> _projectionsById =
-    new Dictionary<GameId, GameStateProjection>();
+  private readonly Dictionary<GameId, GameStateProjection> _projectionsById =
+    [];
 
   public void Save(GameStateProjection projection)
   {
@@ -20,11 +20,6 @@ public class GameStateRepository : IGameStateRepository
 
   public GameStateProjection GetStateOfGame(GameId id)
   {
-    if (_projectionsById.TryGetValue(id, out GameStateProjection game))
-    {
-      return game;
+        return _projectionsById.TryGetValue(id, out GameStateProjection game) ? game : throw new NotSupportedException();
     }
-
-    throw new NotSupportedException();
-  }
 }
