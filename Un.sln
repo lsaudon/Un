@@ -1,16 +1,24 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.Domain", "Un.Domain\Un.Domain.csproj", "{4C5EE6F2-A9E2-4C09-8764-E00806949A55}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.Domain", "Un.Domain\Un.Domain.csproj", "{4C5EE6F2-A9E2-4C09-8764-E00806949A55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.Domain.Tests", "Un.Domain.Tests\Un.Domain.Tests.csproj", "{0C6247F3-BB62-489B-9449-990F8B636128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.Domain.Tests", "Un.Domain.Tests\Un.Domain.Tests.csproj", "{0C6247F3-BB62-489B-9449-990F8B636128}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.Infrastructure", "Un.Infrastructure\Un.Infrastructure.csproj", "{63ADD9FE-CB0B-4C69-894D-A7B221882434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.Infrastructure", "Un.Infrastructure\Un.Infrastructure.csproj", "{63ADD9FE-CB0B-4C69-894D-A7B221882434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.Infrastructure.Tests", "Un.Infrastructure.Tests\Un.Infrastructure.Tests.csproj", "{6EEF6E08-AD0E-4BCF-8CDB-E7AAA21B0CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.Infrastructure.Tests", "Un.Infrastructure.Tests\Un.Infrastructure.Tests.csproj", "{6EEF6E08-AD0E-4BCF-8CDB-E7AAA21B0CC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.GrpcService", "Un.GrpcService\Un.GrpcService.csproj", "{74558BDD-1A14-409A-964F-12DB6636F790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.GrpcService", "Un.GrpcService\Un.GrpcService.csproj", "{74558BDD-1A14-409A-964F-12DB6636F790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Un.Application.Tests", "Un.Application.Tests\Un.Application.Tests.csproj", "{AABB508E-001E-4AEC-8D4C-9F5F9DC065A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Un.Application.Tests", "Un.Application.Tests\Un.Application.Tests.csproj", "{AABB508E-001E-4AEC-8D4C-9F5F9DC065A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{F00911CD-B40B-4190-B13D-7D8D17670112}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +50,11 @@ Global
 		{AABB508E-001E-4AEC-8D4C-9F5F9DC065A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AABB508E-001E-4AEC-8D4C-9F5F9DC065A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AABB508E-001E-4AEC-8D4C-9F5F9DC065A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {347A7696-20E2-42EE-A89E-4CEE471006D0}
 	EndGlobalSection
 EndGlobal
