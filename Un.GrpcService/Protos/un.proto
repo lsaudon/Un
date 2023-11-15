@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Un.GrpcService";
+
+package un;
+
+service Un {
+  rpc StartGame (google.protobuf.Empty) returns (StartGameReply);
+}
+
+message StartGameReply {
+  string gameId = 1;
+}
