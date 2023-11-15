@@ -4,10 +4,7 @@ namespace Un.Domain.Games.Handlers;
 
 public class UpdateState(IGameStateRepository repository) : IEventHandler<GameStarted>, IEventHandler<CardPlayed>
 {
-  public void Handle(GameStarted evt)
-  {
-    repository.Save(new GameStateProjection(evt.Id, evt.Card));
-  }
+  public void Handle(GameStarted evt) => repository.Save(new GameStateProjection(evt.Id, evt.Card));
 
   public void Handle(CardPlayed evt)
   {
