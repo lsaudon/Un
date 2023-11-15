@@ -8,6 +8,7 @@ public class Game
 
   public Game(IEnumerable<IDomainEvent> events)
   {
+    ArgumentNullException.ThrowIfNull(events);
     foreach (IDomainEvent evt in events)
     {
       _projection.Apply(evt);
@@ -16,6 +17,7 @@ public class Game
 
   public static GameId Start(IEventPublisher eventPublisher)
   {
+    ArgumentNullException.ThrowIfNull(eventPublisher);
     GameId id = GameId.Generate();
     eventPublisher.Publish(new GameStarted(id, new Card(CardColor.Blue, CardValue.Zero)));
     return id;
@@ -23,6 +25,7 @@ public class Game
 
   public void PlayCard(IEventPublisher eventPublisher, PlayerId playerId, Card card)
   {
+    ArgumentNullException.ThrowIfNull(eventPublisher);
     if (IsNotPlayable(_projection.LastPlayer, playerId, _projection.TopCard, card))
     {
       return;
