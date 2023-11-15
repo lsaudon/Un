@@ -9,13 +9,11 @@ public class GameStateRepository : IGameStateRepository
 
   public void Save(GameStateProjection projection)
   {
-    if (_projectionsById.ContainsKey(projection.GameId))
+    if (!_projectionsById.TryAdd(projection.GameId, projection))
     {
       _projectionsById[projection.GameId] = projection;
       return;
     }
-
-    _projectionsById.Add(projection.GameId, projection);
   }
 
   public GameStateProjection GetStateOfGame(GameId id)
