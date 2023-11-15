@@ -1,6 +1,4 @@
 ### Say Hello
-GRPC localhost:5159/greet.Greeter/SayHello
+GRPC localhost:5159/un.Un/StartGame
 
-{
-  "name": "HTTP Client with gRPC"
-}
+{}
