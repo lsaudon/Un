@@ -11,9 +11,10 @@ public class GameStateRepository : IGameStateRepository
     if (!_projectionsById.TryAdd(projection.GameId, projection))
     {
       _projectionsById[projection.GameId] = projection;
-      return;
     }
   }
 
-  public GameStateProjection GetStateOfGame(GameId id) => _projectionsById.TryGetValue(id, out GameStateProjection game) ? game : throw new NotSupportedException();
+  public GameStateProjection GetStateOfGame(GameId id) => _projectionsById.TryGetValue(id, out GameStateProjection game)
+                                                            ? game
+                                                            : throw new NotSupportedException();
 }
